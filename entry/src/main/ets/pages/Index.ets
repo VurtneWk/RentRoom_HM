@@ -14,7 +14,7 @@ struct Index {
   tabBarBuilder(image: Resource, activeImage: Resource, text: string, index: number) {
     Column() {
       Image(this.currentTabBarIndex === index ? activeImage : image).width(28).height(28)
-      Text(text).fontSize(10).fontColor(this.currentTabBarIndex === index ? '#000000' : '#A0A0A0')
+      Text(text).fontSize(10).fontColor(this.currentTabBarIndex === index ? $r('app.color.black') : $r('app.color.gray_text'))
     }
   }
 
