@@ -1,17 +1,21 @@
 import SwiperLayout from "../views/Home/SwiperLayout";
 import { getHomeDataApi } from "../api/HomeApi";
-import { BannerListDataSource } from "../models/HomeData";
+import { BannerListDataSource, INavList } from "../models/HomeData";
 import SearchBar from "../views/Home/SearchBar";
+import NavList from "../views/Home/NavList";
+import { PADDING } from "../constants/size";
 
 @Component
 export default struct Home {
   //轮播图数据
   @State bannerList: BannerListDataSource = new BannerListDataSource()
+  @State navList: INavList = []
   //获取首页数据
   getHomeData = async () => {
     const res = await getHomeDataApi()
     // this.bannerList = res.bannerList
     this.bannerList.setList(res.bannerList)
+    this.navList = res.navList
     // console.log('getHomeDataApiRes:' + JSON.stringify(res))
   }
 
@@ -25,10 +29,16 @@ export default struct Home {
       Stack() {
         Column() {
           SwiperLayout({ bannerList: this.bannerList })
+          Column() {
+            NavList({ navList: this.navList })
+          }
+          .width('100%')
+          .padding({ left: PADDING, right: PADDING })
         }
         .width('100%')
 
         SearchBar()
+
       }
       .alignContent(Alignment.Top)
     }
