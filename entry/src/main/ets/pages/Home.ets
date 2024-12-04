@@ -1,21 +1,24 @@
 import SwiperLayout from "../views/Home/SwiperLayout";
 import { getHomeDataApi } from "../api/HomeApi";
-import { BannerListDataSource, INavList } from "../models/HomeData";
+import { BannerListDataSource, INavList, ITileList } from "../models/HomeData";
 import SearchBar from "../views/Home/SearchBar";
 import NavList from "../views/Home/NavList";
 import { PADDING } from "../constants/size";
+import TileList from "../views/Home/TileList";
 
 @Component
 export default struct Home {
   //轮播图数据
   @State bannerList: BannerListDataSource = new BannerListDataSource()
   @State navList: INavList = []
+  @State tileList: ITileList = []
   //获取首页数据
   getHomeData = async () => {
     const res = await getHomeDataApi()
     // this.bannerList = res.bannerList
     this.bannerList.setList(res.bannerList)
     this.navList = res.navList
+    this.tileList = res.tileList
     // console.log('getHomeDataApiRes:' + JSON.stringify(res))
   }
 
@@ -31,6 +34,7 @@ export default struct Home {
           SwiperLayout({ bannerList: this.bannerList })
           Column() {
             NavList({ navList: this.navList })
+            TileList({tileList:this.tileList})
           }
           .width('100%')
           .padding({ left: PADDING, right: PADDING })
