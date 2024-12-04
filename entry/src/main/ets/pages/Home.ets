@@ -1,6 +1,7 @@
 import SwiperLayout from "../views/Home/SwiperLayout";
 import { getHomeDataApi } from "../api/HomeApi";
 import { BannerListDataSource } from "../models/HomeData";
+import SearchBar from "../views/Home/SearchBar";
 
 @Component
 export default struct Home {
@@ -21,10 +22,15 @@ export default struct Home {
 
   build() {
     Scroll() {
-      Column() {
-        SwiperLayout({ bannerList: this.bannerList })
+      Stack() {
+        Column() {
+          SwiperLayout({ bannerList: this.bannerList })
+        }
+        .width('100%')
+
+        SearchBar()
       }
-      .width('100%')
+      .alignContent(Alignment.Top)
     }
     .width('100%')
     .height('100%')

@@ -47,6 +47,10 @@
     {
       "name": "indicator_active_color",
       "value": "#479559"
+    },
+    {
+      "name": "line",
+      "value": "#D7D7D7"
     }
   ]
 }
