@@ -6,6 +6,7 @@ import NavList from "../views/Home/NavList";
 import { PADDING } from "../constants/size";
 import TileList from "../views/Home/TileList";
 import PlanList from "../views/Home/PlanList";
+import Ad from "../views/Home/Ad";
 
 @Component
 export default struct Home {
@@ -14,6 +15,7 @@ export default struct Home {
   @State navList: INavList = []
   @State tileList: ITileList = []
   @State planList: IPlanList = []
+  @State adPicture: string = ''
   //获取首页数据
   getHomeData = async () => {
     const res = await getHomeDataApi()
@@ -22,6 +24,7 @@ export default struct Home {
     this.navList = res.navList
     this.tileList = res.tileList
     this.planList = res.planList
+    this.adPicture = res.adPicture
     // console.log('getHomeDataApiRes:' + JSON.stringify(res))
   }
 
@@ -39,6 +42,7 @@ export default struct Home {
             NavList({ navList: this.navList })
             TileList({ tileList: this.tileList })
             PlanList({ planList: this.planList })
+            Ad({ adPicture: this.adPicture })
           }
           .width('100%')
           .padding({ left: PADDING, right: PADDING })
