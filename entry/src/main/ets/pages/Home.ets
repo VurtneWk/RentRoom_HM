@@ -7,6 +7,7 @@ import { PADDING } from "../constants/size";
 import TileList from "../views/Home/TileList";
 import PlanList from "../views/Home/PlanList";
 import Ad from "../views/Home/Ad";
+import RoomRecommend from "../views/Home/RoomRecommend";
 
 @Component
 export default struct Home {
@@ -43,6 +44,7 @@ export default struct Home {
             TileList({ tileList: this.tileList })
             PlanList({ planList: this.planList })
             Ad({ adPicture: this.adPicture })
+            RoomRecommend()
           }
           .width('100%')
           .padding({ left: PADDING, right: PADDING })
