@@ -51,6 +51,10 @@
     {
       "name": "line",
       "value": "#D7D7D7"
+    },
+    {
+      "name": "price",
+      "value": "#E03810"
     }
   ]
 }

@@ -44,10 +44,11 @@ export default struct Home {
             TileList({ tileList: this.tileList })
             PlanList({ planList: this.planList })
             Ad({ adPicture: this.adPicture })
-            RoomRecommend()
           }
           .width('100%')
           .padding({ left: PADDING, right: PADDING })
+
+          RoomRecommend()
         }
         .width('100%')
 
