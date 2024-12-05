@@ -2,25 +2,24 @@ import { PADDING } from "../../constants/size"
 
 @Component
 export default struct SearchBar {
+  @Prop bgColor: string
+  @Prop fontColor: string
+
   build() {
     Row({ space: PADDING }) {
-      Text("北京").fontSize(14).fontColor($r('app.color.white'))
+      Text("北京").fontSize(14).fontColor(this.fontColor)
       Stack() {
         Row() {
 
-          Image($r('app.media.search')).imageStyles(18).margin(10)
+          Image($r('app.media.search')).imageStyles(18).margin({ right: 10 })
 
           TextInput({ placeholder: '公司/地铁/小区，马上搜索' })
             .layoutWeight(1)
             .fontSize(12)
             .placeholderColor($r('app.color.gray'))
             .placeholderFont({ size: 12 })
-            .caretColor($r('app.color.gray'))// 光标颜色
             .padding(0)
             .backgroundColor($r('app.color.white'))
-            .stateStyles({
-              pressed: textInputStyles
-            })
 
           Column() {
           }
@@ -29,23 +28,28 @@ export default struct SearchBar {
           .backgroundColor($r('app.color.line'))
           .margin({ left: 10 })
 
-          Image($r('app.media.position')).imageStyles(18).margin(10)
+          Image($r('app.media.position')).imageStyles(18).margin({ left: 10 })
         }
       }
       .width(244)
-      .backgroundColor($r('app.color.white'))
       .height(38)
+      .backgroundColor($r('app.color.white'))
       .padding({ left: PADDING, right: PADDING })
       .border({ width: 1, radius: 52, color: $r('app.color.line') })
 
       Image($r('app.media.message'))
         .imageStyles(24)
-        .fillColor($r('app.color.white'))
+        .fillColor(this.fontColor)
     }
     .width('100%')
     .height(38)
-    .padding({ left: PADDING, right: PADDING })
-    .margin({ top: 4 })
+    .padding({
+      left: PADDING,
+      right: PADDING,
+      top: 4,
+      bottom: 4
+    })
+    .backgroundColor(this.bgColor)
   }
 }
 

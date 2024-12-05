@@ -17,6 +17,11 @@ export default struct Home {
   @State tileList: ITileList = []
   @State planList: IPlanList = []
   @State adPicture: string = ''
+  //y轴滚动距离
+  scrollY: number = 0
+  @State bgColor: string = 'rgba(0, 0, 0, 0)'
+  @State fontColor: string = 'rgb(255, 255, 255)'
+  colorOpacity: number = 0
   //获取首页数据
   getHomeData = async () => {
     const res = await getHomeDataApi()
@@ -35,10 +40,11 @@ export default struct Home {
   }
 
   build() {
-    Scroll() {
-      Stack() {
+    Stack() {
+      Scroll() {
         Column() {
           SwiperLayout({ bannerList: this.bannerList })
+
           Column() {
             NavList({ navList: this.navList })
             TileList({ tileList: this.tileList })
@@ -52,14 +58,43 @@ export default struct Home {
         }
         .width('100%')
 
-        SearchBar()
-
       }
-      .alignContent(Alignment.Top)
+      .width('100%')
+      .height('100%')
+      .scrollBar(BarState.Off)
+      .align(Alignment.TopStart)
+      .onDidScroll(this.handleScroll)
+
+      SearchBar({ bgColor: this.bgColor, fontColor: this.fontColor })
+
     }
     .width('100%')
     .height('100%')
-    .scrollBar(BarState.Off)
-    .align(Alignment.TopStart)
+    .alignContent(Alignment.TopStart)
+
+  }
+
+  handleScroll = (xOffset: number, yOffset: number, scrollState: ScrollState) => {
+    this.scrollY += yOffset
+    if (this.scrollY < 0) {
+      this.scrollY = 0;
+    }
+    this.calcColor()
+    console.log(`this.scrollY => ${this.scrollY}`)
+  }
+  // 计算颜色
+  calcColor = () => {
+    // 滚动计算的 scrollY 的值到达顶部可能不是 0，给点误差
+    if (this.scrollY < 10) {
+      this.bgColor = 'rgba(255, 255, 255, 0)'
+      this.fontColor = 'rgba(255, 255, 255,1)'
+    } else if (this.scrollY <= 100) {
+      this.colorOpacity = (this.scrollY - 10) / (100 - 10)
+      this.bgColor = `rgba(255, 255, 255, ${this.colorOpacity})`
+      this.fontColor = `rgba(0, 0, 0,${this.colorOpacity})`
+    } else {
+      this.bgColor = 'rgb(255, 255, 255)'
+      this.fontColor = 'rgb(0, 0, 0)'
+    }
   }
 }
