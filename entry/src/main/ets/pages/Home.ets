@@ -1,6 +1,6 @@
 import SwiperLayout from "../views/Home/SwiperLayout";
 import { getHomeDataApi } from "../api/HomeApi";
-import { BannerListDataSource, INavList, IPlanList, ITileList } from "../models/HomeData";
+import { BannerListDataSource, INavList, IPlanList, ITileList, IColor } from "../models/HomeData";
 import SearchBar from "../views/Home/SearchBar";
 import NavList from "../views/Home/NavList";
 import { PADDING } from "../constants/size";
@@ -8,6 +8,7 @@ import TileList from "../views/Home/TileList";
 import PlanList from "../views/Home/PlanList";
 import Ad from "../views/Home/Ad";
 import RoomRecommend from "../views/Home/RoomRecommend";
+import ScrollContainer from "../components/ScrollContainer/Index"
 
 @Component
 export default struct Home {
@@ -17,11 +18,6 @@ export default struct Home {
   @State tileList: ITileList = []
   @State planList: IPlanList = []
   @State adPicture: string = ''
-  //y轴滚动距离
-  scrollY: number = 0
-  @State bgColor: string = 'rgba(0, 0, 0, 0)'
-  @State fontColor: string = 'rgb(255, 255, 255)'
-  colorOpacity: number = 0
   //获取首页数据
   getHomeData = async () => {
     const res = await getHomeDataApi()
@@ -39,62 +35,37 @@ export default struct Home {
     this.getHomeData()
   }
 
-  build() {
-    Stack() {
-      Scroll() {
-        Column() {
-          SwiperLayout({ bannerList: this.bannerList })
+  @Builder
+  navBuilder($$: IColor) {
+    SearchBar({ bgColor: $$.bgColor, fontColor: $$.fontColor })
+  }
 
-          Column() {
-            NavList({ navList: this.navList })
-            TileList({ tileList: this.tileList })
-            PlanList({ planList: this.planList })
-            Ad({ adPicture: this.adPicture })
-          }
-          .width('100%')
-          .padding({ left: PADDING, right: PADDING })
+  @Builder
+  contentBuilder() {
+    SwiperLayout({ bannerList: this.bannerList })
 
-          RoomRecommend()
-        }
-        .width('100%')
-
-      }
-      .width('100%')
-      .height('100%')
-      .scrollBar(BarState.Off)
-      .align(Alignment.TopStart)
-      .onDidScroll(this.handleScroll)
-
-      SearchBar({ bgColor: this.bgColor, fontColor: this.fontColor })
-
+    Column() {
+      NavList({ navList: this.navList })
+      TileList({ tileList: this.tileList })
+      PlanList({ planList: this.planList })
+      Ad({ adPicture: this.adPicture })
     }
     .width('100%')
-    .height('100%')
-    .alignContent(Alignment.TopStart)
+    .padding({ left: PADDING, right: PADDING })
 
+    RoomRecommend()
   }
 
-  handleScroll = (xOffset: number, yOffset: number, scrollState: ScrollState) => {
-    this.scrollY += yOffset
-    if (this.scrollY < 0) {
-      this.scrollY = 0;
-    }
-    this.calcColor()
-    console.log(`this.scrollY => ${this.scrollY}`)
-  }
-  // 计算颜色
-  calcColor = () => {
-    // 滚动计算的 scrollY 的值到达顶部可能不是 0，给点误差
-    if (this.scrollY < 10) {
-      this.bgColor = 'rgba(255, 255, 255, 0)'
-      this.fontColor = 'rgba(255, 255, 255,1)'
-    } else if (this.scrollY <= 100) {
-      this.colorOpacity = (this.scrollY - 10) / (100 - 10)
-      this.bgColor = `rgba(255, 255, 255, ${this.colorOpacity})`
-      this.fontColor = `rgba(0, 0, 0,${this.colorOpacity})`
-    } else {
-      this.bgColor = 'rgb(255, 255, 255)'
-      this.fontColor = 'rgb(0, 0, 0)'
-    }
+  build() {
+
+    ScrollContainer({
+      navBuilderParams: this.navBuilder,
+      //contentBuilder里需要使用this
+      //如果不包裹一层 this就是undefined
+      contentBuilderParams: () => {
+        this.contentBuilder()
+      }
+    })
+
   }
 }

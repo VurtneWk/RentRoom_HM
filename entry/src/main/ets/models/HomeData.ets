@@ -219,3 +219,9 @@ export class RoomRecommendListDataSource implements IDataSource {
     })
   }
 }
+
+
+export interface IColor {
+  bgColor: string,
+  fontColor: string
+}
