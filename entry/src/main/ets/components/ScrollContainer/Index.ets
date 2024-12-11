@@ -2,6 +2,8 @@ import { IColor } from "../../models/HomeData"
 
 @Component
 export default struct Index {
+  @StorageProp('topHeight') topHeight: number = 0
+
   @Builder
   defaultBuilder() {
   }
@@ -20,7 +22,7 @@ export default struct Index {
       this.scrollY = 0;
     }
     this.calcColor()
-    console.log(`this.scrollY => ${this.scrollY}`)
+    console.log(`this.topHeight => ${this.topHeight}`)
   }
   // 计算颜色
   calcColor = () => {
@@ -53,7 +55,11 @@ export default struct Index {
       .align(Alignment.TopStart)
       .onDidScroll(this.handleScroll)
 
-      this.navBuilderParams({ bgColor: this.bgColor, fontColor: this.fontColor })
+      Column() {
+        this.navBuilderParams({ fontColor: this.fontColor })
+      }
+      .backgroundColor(this.bgColor)
+      .padding({ top: px2vp(this.topHeight) })
 
     }
     .width('100%')

@@ -2,6 +2,7 @@ import { IBannerItem, BannerListDataSource } from "../../models/HomeData";
 
 @Component
 export default struct SwiperLayout {
+  @StorageProp('topHeight') topHeight: number = 0
   @ObjectLink bannerList: BannerListDataSource
 
   build() {
@@ -11,7 +12,7 @@ export default struct SwiperLayout {
       }, (banner: IBannerItem) => banner.id + '')
     }
     .width('100%')
-    .height(211 - 36)
+    .height(175 + px2vp(this.topHeight))
     .loop(true)
     .autoPlay(true)
     .indicator(

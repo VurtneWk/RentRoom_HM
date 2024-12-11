@@ -37,7 +37,7 @@ export default struct Home {
 
   @Builder
   navBuilder($$: IColor) {
-    SearchBar({ bgColor: $$.bgColor, fontColor: $$.fontColor })
+    SearchBar({ fontColor: $$.fontColor })
   }
 
   @Builder
