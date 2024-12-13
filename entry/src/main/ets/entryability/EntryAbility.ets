@@ -32,6 +32,11 @@ export default class EntryAbility extends UIAbility {
     const topHeight = avoidArea.topRect.height //px
     //存储
     AppStorage.setOrCreate('topHeight', topHeight)
+
+    //设置状态栏颜色
+    windowClass.setWindowSystemBarProperties({
+      statusBarContentColor: '#FFFFFF'
+    })
   }
 
   onWindowStageDestroy(): void {

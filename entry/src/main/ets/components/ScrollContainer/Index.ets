@@ -1,4 +1,5 @@
 import { IColor } from "../../models/HomeData"
+import { window } from "@kit.ArkUI"
 
 @Component
 export default struct Index {
@@ -22,14 +23,25 @@ export default struct Index {
       this.scrollY = 0;
     }
     this.calcColor()
-    console.log(`this.topHeight => ${this.topHeight}`)
+  }
+  windowClass?: window.Window
+
+  aboutToAppear(): void {
+    this.getWindowClass()
+  }
+
+  getWindowClass = async () => {
+    this.windowClass = await window.getLastWindow(getContext())
   }
   // 计算颜色
-  calcColor = () => {
+  calcColor = async () => {
     // 滚动计算的 scrollY 的值到达顶部可能不是 0，给点误差
     if (this.scrollY < 10) {
       this.bgColor = 'rgba(255, 255, 255, 0)'
       this.fontColor = 'rgba(255, 255, 255,1)'
+      this.windowClass!.setWindowSystemBarProperties({
+        statusBarContentColor: '#FFFFFF'
+      })
     } else if (this.scrollY <= 100) {
       this.colorOpacity = (this.scrollY - 10) / (100 - 10)
       this.bgColor = `rgba(255, 255, 255, ${this.colorOpacity})`
@@ -37,6 +49,9 @@ export default struct Index {
     } else {
       this.bgColor = 'rgb(255, 255, 255)'
       this.fontColor = 'rgb(0, 0, 0)'
+      this.windowClass!.setWindowSystemBarProperties({
+        statusBarContentColor: '#000000'
+      })
     }
   }
 
