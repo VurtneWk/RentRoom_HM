@@ -37,6 +37,9 @@ export default class EntryAbility extends UIAbility {
     windowClass.setWindowSystemBarProperties({
       statusBarContentColor: '#FFFFFF'
     })
+    //获取屏幕宽度
+    const windowWidth = windowClass.getWindowProperties().windowRect.width
+    AppStorage.setOrCreate('windowWidth', px2vp(windowWidth))
   }
 
   onWindowStageDestroy(): void {

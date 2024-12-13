@@ -1,6 +1,7 @@
 import { getRoomRecommendListApi } from "../../api/HomeApi";
 import { BORDER_RADIUS, PADDING, PADDING_S } from "../../constants/size";
 import { IRoomRecommendItem, ITagItem, RoomRecommendListDataSource } from "../../models/HomeData";
+import { rvp } from "../../utils/responsive";
 
 @Component
 export default struct RoomRecommend {
@@ -22,7 +23,7 @@ export default struct RoomRecommend {
       this.RoomRecommendNav()
       this.RoomRecommendList()
     }
-    .margin({ top: 32 })
+    .margin({ top: rvp(32) })
   }
 
   @Builder
@@ -32,16 +33,16 @@ export default struct RoomRecommend {
         Span('周边房源').fontColor($r('app.color.black'))
         Span('推荐').fontColor($r('app.color.primary'))
       }
-      .fontSize(16)
+      .fontSize(rvp(16))
       .fontWeight(700)
 
-      Row({ space: 6 }) {
+      Row({ space: rvp(6) }) {
         Text('更多推荐')
           .fontColor($r('app.color.gray_second'))
-          .fontSize(10)
+          .fontSize(rvp(10))
         Image($r('app.media.arrow_right'))
-          .width(4)
-          .height(8)
+          .width(rvp(4))
+          .height(rvp(8))
       }
     }
     .width('100%')
@@ -67,17 +68,17 @@ export default struct RoomRecommend {
                 .height('100%')
                 .objectFit(ImageFit.Fill)
                 .borderRadius({ topLeft: BORDER_RADIUS, topRight: BORDER_RADIUS })
-              Row({ space: 6 }) {
+              Row({ space: rvp(6) }) {
                 Image($r('app.media.location'))
-                  .width(12).height(14)
+                  .width(rvp(12)).height(rvp(14))
                 Text(item.address)
-                  .fontSize(10)
+                  .fontSize(rvp(10))
                   .fontColor($r('app.color.white'))
               }
-              .margin({ left: 8, bottom: 8 })
+              .margin({ left: rvp(8), bottom: rvp(8), })
             }
             .width('100%')
-            .height(120)
+            .height(rvp(120))
             .alignContent(Alignment.BottomStart)
 
             //文本区域
@@ -85,14 +86,14 @@ export default struct RoomRecommend {
               Row() {
                 Text() {
                   Span(item.rentPriceListing)
-                    .fontSize(14)
+                    .fontSize(rvp(14))
                   Span(item.rentPriceUnit)
-                    .fontSize(12)
+                    .fontSize(rvp(12))
                 }
                 .fontColor($r('app.color.price'))
 
                 Text(item.rentArea + '㎡')
-                  .fontSize(10)
+                  .fontSize(rvp(10))
                   .fontColor($r('app.color.gray'))
               }
               .width('100%')
@@ -100,32 +101,32 @@ export default struct RoomRecommend {
 
 
               Text(item.houseTitle)
-                .fontSize(12)
+                .fontSize(rvp(12))
                 .fontColor($r('app.color.black'))
                 .maxLines(1)
                 .textOverflow({ overflow: TextOverflow.Ellipsis })
-                .margin({ top: 2 })
+                .margin({ top: rvp(2) })
 
               Row() {
                 ForEach(item.tags.slice(0, 2), (tag: ITagItem, index) => {
                   Text(tag.name)
-                    .fontSize(10)
+                    .fontSize(rvp(10))
                     .fontColor(index === 0 ? $r('app.color.white') : '#B3B3B3')
                     .backgroundColor(index === 0 ? $r('app.color.primary') : $r('app.color.bg_gray'))
-                    .borderRadius(2)
-                    .height(16)
-                    .padding({ left: 6, right: 6 })
-                    .margin({ right: 6 })
+                    .borderRadius(rvp(2))
+                    .height(rvp(16))
+                    .padding({ left: rvp(6), right: rvp(6) })
+                    .margin({ right: rvp(6) })
                 }, (tag: ITagItem) => tag.name)
               }
               .width('100%')
-              .margin({ top: 10 })
+              .margin({ top: rvp(10) })
             }
-            .padding(PADDING_S)
+            .padding(rvp(PADDING_S))
             .width('100%')
           }
           .width('100%')
-          .borderRadius(BORDER_RADIUS)
+          .borderRadius(rvp(BORDER_RADIUS))
           .backgroundColor($r('app.color.white'))
         }
 
@@ -134,7 +135,7 @@ export default struct RoomRecommend {
     .width('100%')
     .columnsGap(8)
     .rowsGap(8)
-    .padding(PADDING)
+    .padding(rvp(PADDING))
     .backgroundColor($r('app.color.bg_gray'))
     .columnsTemplate('1fr 1fr')
   }

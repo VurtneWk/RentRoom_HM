@@ -1,4 +1,5 @@
 import { INavItem, INavList } from "../../models/HomeData"
+import { rvp } from "../../utils/responsive"
 
 @Component
 export default struct NavList {
@@ -8,7 +9,7 @@ export default struct NavList {
     Grid() {
       ForEach(this.navList, (item: INavItem) => {
         GridItem() {
-          Column({ space: 8 }) {
+          Column({ space: rvp(8) }) {
             Image(item.imageURL)
               .width(58)
               .height(56)

@@ -1,4 +1,5 @@
 import { PADDING } from "../../constants/size"
+import { rvp } from "../../utils/responsive"
 
 @Component
 export default struct SearchBar {
@@ -6,17 +7,17 @@ export default struct SearchBar {
 
   build() {
     Row({ space: PADDING }) {
-      Text("北京").fontSize(14).fontColor(this.fontColor)
+      Text("北京").fontSize(rvp(14)).fontColor(this.fontColor)
       Stack() {
         Row() {
 
-          Image($r('app.media.search')).imageStyles(18).margin({ right: 10 })
+          Image($r('app.media.search')).imageStyles(rvp(18)).margin({ right: rvp(10) })
 
           TextInput({ placeholder: '公司/地铁/小区，马上搜索' })
             .layoutWeight(1)
-            .fontSize(12)
+            .fontSize(rvp(12))
             .placeholderColor($r('app.color.gray'))
-            .placeholderFont({ size: 12 })
+            .placeholderFont({ size: rvp(12) })
             .padding(0)
             .backgroundColor($r('app.color.white'))
 
@@ -25,28 +26,28 @@ export default struct SearchBar {
           .height(18)
           .width(1)
           .backgroundColor($r('app.color.line'))
-          .margin({ left: 10 })
+          .margin({ left: rvp(10) })
 
-          Image($r('app.media.position')).imageStyles(18).margin({ left: 10 })
+          Image($r('app.media.position')).imageStyles(18).margin({ left: rvp(10) })
         }
       }
       .width(244)
       .height(38)
       .backgroundColor($r('app.color.white'))
       .padding({ left: PADDING, right: PADDING })
-      .border({ width: 1, radius: 52, color: $r('app.color.line') })
+      .border({ width: rvp(1), radius: rvp(52), color: $r('app.color.line') })
 
       Image($r('app.media.message'))
-        .imageStyles(24)
+        .imageStyles(rvp(24))
         .fillColor(this.fontColor)
     }
     .width('100%')
-    .height(38)
+    .height(rvp(38))
     .padding({
-      left: PADDING,
-      right: PADDING,
-      top: 4,
-      bottom: 4
+      left: rvp(PADDING),
+      right: rvp(PADDING),
+      top: rvp(4),
+      bottom: rvp(4)
     })
   }
 }
@@ -54,10 +55,4 @@ export default struct SearchBar {
 @Extend(Image)
 function imageStyles(size: number) {
   .width(size).height(size).objectFit(ImageFit.Fill)
-}
-
-
-@Styles
-function textInputStyles() {
-  .backgroundColor($r("app.color.white"))
 }

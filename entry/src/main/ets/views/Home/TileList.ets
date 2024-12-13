@@ -1,32 +1,33 @@
 import { ITileItem, ITileList } from "../../models/HomeData";
+import { rvp } from "../../utils/responsive";
 
 @Component
 export default struct TileList {
   @Prop tileList: ITileList
 
   build() {
-    Row({ space: 32 }) {
+    Row({ space: rvp(32) }) {
       ForEach(this.tileList, (item: ITileItem) => {
-        Column({ space: 8 }) {
+        Column({ space: rvp(8) }) {
           Image(item.imageURL)
             .width('100%')
-            .height(58)
-          Row({ space: 4 }) {
+            .height(rvp(58))
+          Row({ space: rvp(4) }) {
             Text(item.title)
-              .fontSize(12)
+              .fontSize(rvp(12))
               .fontColor($r('app.color.black'))
             Text(item.sub_title)
-              .fontSize(10)
+              .fontSize(rvp(10))
               .fontColor($r('app.color.gray'))
           }
           .justifyContent(FlexAlign.Start)
           .width('100%')
         }
-        .width(148)
+        .width(rvp(148))
       }, (item: ITileItem) => item.id + '')
     }
     .width('100%')
     .justifyContent(FlexAlign.SpaceBetween)
-    .margin({ top: 10 })
+    .margin({ top: rvp(10) })
   }
 }

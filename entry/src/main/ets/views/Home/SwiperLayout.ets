@@ -1,4 +1,5 @@
 import { IBannerItem, BannerListDataSource } from "../../models/HomeData";
+import { rvp } from "../../utils/responsive";
 
 @Component
 export default struct SwiperLayout {
@@ -12,7 +13,7 @@ export default struct SwiperLayout {
       }, (banner: IBannerItem) => banner.id + '')
     }
     .width('100%')
-    .height(175 + px2vp(this.topHeight))
+    .height(rvp(175) + rvp(px2vp(this.topHeight)))
     .loop(true)
     .autoPlay(true)
     .indicator(
